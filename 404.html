@@ -1,99 +1,240 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>404 - Not Found</title>
-  <style>
-    @import url('https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@400;700&family=Inter:wght@300;400;600;800&display=swap');
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>404 - Not Found</title>
 
-    :root {
-      /* Dark Theme Variables (Terminal/Hacker Vibe) */
-      --bg-color: #0b0f19;
-      --bg-surface: #111827;
-      --text-primary: #f8fafc;
-      --text-secondary: #94a3b8;
-      --accent-primary: #10b981; /* Terminal Green */
-      --accent-alert: #f97316;
-    }
+<style>
+@import url('https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@400;700&family=Inter:wght@300;400;600;800&display=swap');
 
-    * {
-      margin: 0;
-      padding: 0;
-      box-sizing: border-box;
-    }
+:root{
+--bg:#0b0f19;
+--surface:#111827;
+--text:#f8fafc;
+--muted:#94a3b8;
+--green:#10b981;
+--orange:#f97316;
+}
 
-    body {
-      font-family: 'Inter', sans-serif;
-      background-color: var(--bg-color);
-      color: var(--text-primary);
-      line-height: 1.6;
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      height: 100vh;
-      overflow: hidden;
-    }
+*{
+margin:0;
+padding:0;
+box-sizing:border-box;
+}
 
-    .mono {
-      font-family: 'JetBrains Mono', monospace;
-    }
+body{
+font-family:Inter,sans-serif;
+background:var(--bg);
+color:var(--text);
+overflow:hidden;
+height:100vh;
+display:flex;
+justify-content:center;
+align-items:center;
+}
 
-    .container {
-      text-align: center;
-      padding: 2rem;
-    }
+canvas{
+position:fixed;
+inset:0;
+z-index:-1;
+}
 
-    h1 {
-      font-size: 6rem;
-      color: var(--accent-alert);
-      margin: 0;
-      line-height: 1;
-      font-weight: 700;
-    }
+.container{
+text-align:center;
+padding:2rem;
+z-index:2;
+}
 
-    h2 {
-      font-size: 2rem;
-      margin-bottom: 2rem;
-      font-weight: 700;
-    }
+.mono{
+font-family:"JetBrains Mono",monospace;
+}
 
-    p {
-      color: var(--text-secondary);
-      margin-bottom: 2rem;
-      font-size: 1.1rem;
-    }
+h1{
+font-size:6rem;
+color:var(--orange);
+line-height:1;
+}
 
-    .btn {
-      display: inline-block;
-      padding: 0.75rem 1.5rem;
-      font-family: 'JetBrains Mono', monospace;
-      font-weight: 700;
-      text-transform: uppercase;
-      border-radius: 4px;
-      cursor: pointer;
-      transition: all 0.3s ease;
-      text-decoration: none;
-      border: 1px solid var(--accent-primary);
-    }
+h2{
+margin:1rem 0 2rem;
+}
 
-    .btn-primary {
-      background-color: var(--accent-primary);
-      color: var(--bg-color);
-    }
+p{
+color:var(--muted);
+margin-bottom:2rem;
+}
 
-    .btn-primary:hover {
-      background-color: transparent;
-      color: var(--accent-primary);
-    }
-  </style>
+.btn{
+display:inline-block;
+padding:.8rem 1.6rem;
+background:var(--green);
+color:#000;
+text-decoration:none;
+border:1px solid var(--green);
+font-weight:bold;
+transition:.3s;
+}
+
+.btn:hover{
+background:transparent;
+color:var(--green);
+}
+</style>
 </head>
+
 <body>
-  <div class="container">
-    <h1 class="mono">404</h1>
-    <h2 class="mono">&gt; ERROR: PAGE_!FOUND</h2>
-    <p>The requested resource could not be found on this server. It may have been moved or deleted.</p>
-    <a href="https://sandunvirajdilshan.github.io/" class="btn btn-primary mono">Return to Base</a>
-  </div>
+
+<canvas id="bg"></canvas>
+
+<div class="container">
+<h1 class="mono">404</h1>
+<h2 class="mono">&gt; ERROR: PAGE_!FOUND</h2>
+
+<p>The requested resource could not be found on this server.<br>
+It may have been moved or deleted.</p>
+
+<a class="btn mono"
+href="https://sandunvirajdilshan.github.io/portfolio">
+Return to Home
+</a>
+</div>
+
+<script>
+const canvas=document.getElementById("bg");
+const ctx=canvas.getContext("2d");
+
+let w,h;
+let particles=[];
+const mouse={x:null,y:null,radius:150};
+
+function resize(){
+w=canvas.width=window.innerWidth;
+h=canvas.height=window.innerHeight;
+create();
+}
+
+window.addEventListener("resize",resize);
+
+window.addEventListener("mousemove",e=>{
+mouse.x=e.clientX;
+mouse.y=e.clientY;
+});
+
+window.addEventListener("mouseout",()=>{
+mouse.x=null;
+mouse.y=null;
+});
+
+class Particle{
+
+constructor(){
+this.x=Math.random()*w;
+this.y=Math.random()*h;
+this.dx=(Math.random()-0.5)*1.5;
+this.dy=(Math.random()-0.5)*1.5;
+this.r=Math.random()*2+1;
+}
+
+update(){
+
+if(this.x<0||this.x>w)this.dx*=-1;
+if(this.y<0||this.y>h)this.dy*=-1;
+
+this.x+=this.dx;
+this.y+=this.dy;
+
+ctx.beginPath();
+ctx.arc(this.x,this.y,this.r,0,Math.PI*2);
+ctx.fillStyle="rgba(16,185,129,.8)";
+ctx.fill();
+}
+}
+
+function create(){
+particles=[];
+const count=(w*h)/9000;
+
+for(let i=0;i<count;i++)
+particles.push(new Particle());
+}
+
+function connect(){
+
+const max=120;
+
+for(let a=0;a<particles.length;a++){
+
+for(let b=a;b<particles.length;b++){
+
+const dx=particles[a].x-particles[b].x;
+const dy=particles[a].y-particles[b].y;
+const dist=dx*dx+dy*dy;
+
+if(dist<max*max){
+
+const o=1-dist/(max*max);
+
+ctx.strokeStyle=`rgba(16,185,129,${o})`;
+ctx.lineWidth=1;
+
+ctx.beginPath();
+ctx.moveTo(particles[a].x,particles[a].y);
+ctx.lineTo(particles[b].x,particles[b].y);
+ctx.stroke();
+
+}
+
+}
+
+if(mouse.x!==null){
+
+const dx=particles[a].x-mouse.x;
+const dy=particles[a].y-mouse.y;
+const dist=dx*dx+dy*dy;
+
+if(dist<mouse.radius*mouse.radius){
+
+const o=1-dist/(mouse.radius*mouse.radius);
+
+ctx.strokeStyle=`rgba(52,211,153,${o})`;
+ctx.lineWidth=1.5;
+
+ctx.beginPath();
+ctx.moveTo(particles[a].x,particles[a].y);
+ctx.lineTo(mouse.x,mouse.y);
+ctx.stroke();
+
+if(dist<(mouse.radius*mouse.radius)/2){
+
+particles[a].x-=(particles[a].x-mouse.x)*0.03;
+particles[a].y-=(particles[a].y-mouse.y)*0.03;
+
+}
+
+}
+
+}
+
+}
+
+}
+
+function animate(){
+
+ctx.clearRect(0,0,w,h);
+
+particles.forEach(p=>p.update());
+
+connect();
+
+requestAnimationFrame(animate);
+
+}
+
+resize();
+animate();
+</script>
+
 </body>
 </html>
