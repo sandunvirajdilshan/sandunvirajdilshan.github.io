@@ -1,0 +1,99 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>404 - Not Found</title>
+  <style>
+    @import url('https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@400;700&family=Inter:wght@300;400;600;800&display=swap');
+
+    :root {
+      /* Dark Theme Variables (Terminal/Hacker Vibe) */
+      --bg-color: #0b0f19;
+      --bg-surface: #111827;
+      --text-primary: #f8fafc;
+      --text-secondary: #94a3b8;
+      --accent-primary: #10b981; /* Terminal Green */
+      --accent-alert: #f97316;
+    }
+
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+    }
+
+    body {
+      font-family: 'Inter', sans-serif;
+      background-color: var(--bg-color);
+      color: var(--text-primary);
+      line-height: 1.6;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      height: 100vh;
+      overflow: hidden;
+    }
+
+    .mono {
+      font-family: 'JetBrains Mono', monospace;
+    }
+
+    .container {
+      text-align: center;
+      padding: 2rem;
+    }
+
+    h1 {
+      font-size: 6rem;
+      color: var(--accent-alert);
+      margin: 0;
+      line-height: 1;
+      font-weight: 700;
+    }
+
+    h2 {
+      font-size: 2rem;
+      margin-bottom: 2rem;
+      font-weight: 700;
+    }
+
+    p {
+      color: var(--text-secondary);
+      margin-bottom: 2rem;
+      font-size: 1.1rem;
+    }
+
+    .btn {
+      display: inline-block;
+      padding: 0.75rem 1.5rem;
+      font-family: 'JetBrains Mono', monospace;
+      font-weight: 700;
+      text-transform: uppercase;
+      border-radius: 4px;
+      cursor: pointer;
+      transition: all 0.3s ease;
+      text-decoration: none;
+      border: 1px solid var(--accent-primary);
+    }
+
+    .btn-primary {
+      background-color: var(--accent-primary);
+      color: var(--bg-color);
+    }
+
+    .btn-primary:hover {
+      background-color: transparent;
+      color: var(--accent-primary);
+    }
+  </style>
+</head>
+<body>
+  <div class="container">
+    <h1 class="mono">404</h1>
+    <h2 class="mono">&gt; ERROR: PAGE_!FOUND</h2>
+    <p>The requested resource could not be found on this server. It may have been moved or deleted.</p>
+    <a href="https://sandunvirajdilshan.github.io/portfolio" class="btn btn-primary mono">Return to Base</a>
+  </div>
+</body>
+</html>
